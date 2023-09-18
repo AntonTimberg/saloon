@@ -31,7 +31,7 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") @Valid Users user, BindingResult bindingResult,
-                               @RequestParam("birthday") LocalDate birthday) {
+                               @RequestParam("birthdate") String birthdate) {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
@@ -42,7 +42,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        user.setBirthDay(birthday);
+        user.setBirthDay(LocalDate.parse(birthdate));
         userService.createUser(user);
         return "redirect:/login";
     }
