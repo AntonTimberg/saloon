@@ -5,6 +5,9 @@ import com.example.saloon.entity.Users;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 @Component
 public class UserConverter implements Converter<Users, UserDto> {
 
@@ -15,7 +18,7 @@ public class UserConverter implements Converter<Users, UserDto> {
                 .name(source.getName())
                 .surName(source.getSurname())
                 .gender(source.getGender())
-                .age(source.getAge())
+                .age(Period.between(source.getBirthDay(), LocalDate.now()).getYears())
                 .login(source.getLogin())
                 .status(String.valueOf(source.getStatus()))
                 .build();

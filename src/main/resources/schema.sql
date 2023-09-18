@@ -1,14 +1,14 @@
 CREATE TABLE users
 (
-    id       BIGINT AUTO_INCREMENT PRIMARY KEY,
-    room     INTEGER UNIQUE CHECK (room >= 1 AND room <= 7),
-    name     VARCHAR(35) NOT NULL,
-    surname  VARCHAR(35) NOT NULL,
-    gender   VARCHAR(10) NOT NULL,
-    age      INTEGER NOT NULL,
-    login    VARCHAR(15) NOT NULL UNIQUE,
-    password VARCHAR(15) NOT NULL,
-    status   VARCHAR(25) NOT NULL DEFAULT 'Client'
+    id         BIGINT AUTO_INCREMENT PRIMARY KEY,
+    room       INTEGER UNIQUE CHECK (room >= 1 AND room <= 7),
+    name       VARCHAR(35) NOT NULL,
+    surname    VARCHAR(35) NOT NULL,
+    gender     VARCHAR(10) NOT NULL,
+    birthdate  DATE,
+    login      VARCHAR(15) NOT NULL UNIQUE,
+    password   VARCHAR(15) NOT NULL,
+    status     VARCHAR(25) NOT NULL DEFAULT 'Client'
 );
 
 CREATE TABLE rooms

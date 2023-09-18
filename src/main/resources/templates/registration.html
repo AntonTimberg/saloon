@@ -2,26 +2,91 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Registration</title>
+    <style>
+        body {
+            background-color: #667369;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        form {
+            width: 300px;
+            margin: 0 auto;
+            background-color: #2c3e50;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="date"],
+        select {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 10px;
+            color: black;
+        }
+
+        /* Add margin-bottom to input fields */
+        input[type="text"] + label,
+        input[type="password"] + label,
+        input[type="date"] + label,
+        select + label {
+            margin-bottom: 15px;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        span.error-message {
+            display: block;
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
 <h1>Registration</h1>
 <form th:action="@{/register}" method="post" th:object="${user}">
-    <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name" required><br>
-    <label for="surname">Surname:</label><br>
-    <input type="text" id="surname" name="surname" required><br>
-    <label for="gender">Gender:</label><br>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" pattern="[A-Za-zА-Яа-я]+" maxlength="25" required><br>
+    <label for="surname">Surname:</label>
+    <input type="text" id="surname" name="surname" pattern="[A-Za-zА-Яа-я]+" maxlength="25" required><br>
+    <label for="gender">Gender:</label>
     <select id="gender" name="gender" required>
         <option value="male">Male</option>
         <option value="female">Female</option>
     </select><br>
-    <label for="age">Age:</label><br>
-    <input type="number" id="age" name="age" required><br>
-    <label for="login">Login:</label><br>
-    <input type="text" id="login" name="login" th:field="*{login}" required><br>
-    <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span><br>
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password" required><br>
+    <label for="birthdate">Birthdate:</label>
+    <input type="date" id="birthdate" name="birthdate" required><br>
+    <label for="login">Login:</label>
+    <input type="text" id="login" name="login" th:field="*{login}" pattern="[A-Za-z0-9]+" minlength="3" maxlength="20" required><br>
+    <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="error-message"></span>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" pattern="[A-Za-z0-9]+" minlength="3" maxlength="20" required><br>
     <input type="submit" value="Register">
 </form>
 </body>

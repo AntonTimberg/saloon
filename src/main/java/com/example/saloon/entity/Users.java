@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -32,17 +33,19 @@ public class Users {
     @Min(1)
     @Max(7)
     private Integer room;
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Only alphanumeric characters are allowed")
+    @Pattern(regexp = "^[a-zA-Z0-9]+$")
     private String name;
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Only alphanumeric characters are allowed")
+    @Pattern(regexp = "^[a-zA-Z0-9]+$")
     private String surname;
 
     private String gender;
 
-    private Integer age;
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Only alphanumeric characters are allowed")
+    @Column(name = "birthdate")
+    private LocalDate birthDay;
+
+    @Pattern(regexp = "^[a-zA-Z0-9]+$")
     private String login;
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Only alphanumeric characters are allowed")
+    @Pattern(regexp = "^[a-zA-Z0-9]+$")
     private String password;
 
     @Enumerated(EnumType.STRING)

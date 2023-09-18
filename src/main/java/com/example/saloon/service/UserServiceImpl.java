@@ -53,7 +53,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserByLogin(String login) {
-        userRepo.delete(userRepo.findByLogin(login));
+        Users user = userRepo.findByLogin(login);
+        if (user != null){
+            userRepo.delete(user);
+        }
     }
 
     @Override

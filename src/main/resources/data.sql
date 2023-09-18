@@ -1,6 +1,6 @@
-INSERT INTO users(room, name, surname, gender, age, login, password, status)
-VALUES (4,'Domenic', 'from Torrent', 'male', 56, 'pip', 'pip', 'CLIENT'),
-       (null, 'Berimor', 'Unknown', 'male', 111, 'admin', 'admin', 'ADMIN');
+INSERT INTO users(room, name, surname, gender, birthdate, login, password, status)
+VALUES (4,'Domenic', 'Linderman', 'male', '1963-11-06', 'morgan', '917371', 'CLIENT'),
+       (null, 'Berimor', 'Unknown', 'male', '1934-04-26', 'admin', 'admin', 'ADMIN');
 
 INSERT INTO rooms(room, status, roomclass)
 VALUES (4, 'OCCUPIED',  'PALACE'),
