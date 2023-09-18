@@ -33,9 +33,7 @@ public class Users {
     @Min(1)
     @Max(7)
     private Integer room;
-    @Pattern(regexp = "^[a-zA-Z0-9]+$")
     private String name;
-    @Pattern(regexp = "^[a-zA-Z0-9]+$")
     private String surname;
 
     private String gender;
@@ -43,9 +41,7 @@ public class Users {
     @Column(name = "birthdate")
     private LocalDate birthDay;
 
-    @Pattern(regexp = "^[a-zA-Z0-9]+$")
     private String login;
-    @Pattern(regexp = "^[a-zA-Z0-9]+$")
     private String password;
 
     @Enumerated(EnumType.STRING)

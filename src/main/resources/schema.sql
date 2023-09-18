@@ -14,7 +14,17 @@ CREATE TABLE users
 CREATE TABLE rooms
 (
     id          BIGINT  AUTO_INCREMENT PRIMARY KEY,
-    room INTEGER UNIQUE NOT NULL,
+    room        INTEGER UNIQUE NOT NULL,
     status      VARCHAR NOT NULL,
-    roomclass   VARCHAR NOT NULL
+    roomclass   VARCHAR NOT NULL,
+    capacity    INTEGER NOT NULL 
+);
+
+CREATE TABLE reservation
+(
+    id               BIGINT  AUTO_INCREMENT PRIMARY KEY,
+    room             INTEGER NOT NULL,
+    reservationfrom  DATE NOT NULL,
+    reservationuntil DATE NOT NULL,
+    userid           INTEGER NOT NULL
 );

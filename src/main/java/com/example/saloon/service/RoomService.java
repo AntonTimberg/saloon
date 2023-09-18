@@ -9,4 +9,6 @@ public interface RoomService {
     List<Room> getAll();
 
     void updateStatus(Integer roomNumber, RoomStatus status);
+
+    Integer getCapacity();
 }

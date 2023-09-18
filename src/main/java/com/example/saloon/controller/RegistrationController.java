@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Optional;
 
 @Controller
@@ -25,7 +24,6 @@ public class RegistrationController {
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Users());
-        model.addAttribute("nameTooltip", "Введите ваше имя");
         return "registration";
     }
 

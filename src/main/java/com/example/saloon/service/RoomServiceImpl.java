@@ -25,4 +25,9 @@ public class RoomServiceImpl implements RoomService{
         Room room = roomRepo.findByRoom(roomNumber);
         if(room != null) room.setStatus(status);
     }
+
+    @Override
+    public Integer getCapacity() {
+        return getCapacity();
+    }
 }
