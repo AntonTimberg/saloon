@@ -9,8 +9,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 
 @Controller
@@ -27,7 +30,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") @Valid Users user, BindingResult bindingResult) {
+    public String registerUser(@ModelAttribute("user") @Valid Users user, BindingResult bindingResult,
+                               @RequestParam("birthday") LocalDate birthday) {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
@@ -38,6 +42,7 @@ public class RegistrationController {
             return "registration";
         }
 
+        user.setBirthDay(birthday);
         userService.createUser(user);
         return "redirect:/login";
     }

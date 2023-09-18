@@ -5,7 +5,7 @@ CREATE TABLE users
     name       VARCHAR(35) NOT NULL,
     surname    VARCHAR(35) NOT NULL,
     gender     VARCHAR(10) NOT NULL,
-    birthdate  DATE,
+    birthdate  DATE NOT NULL,
     login      VARCHAR(15) NOT NULL UNIQUE,
     password   VARCHAR(15) NOT NULL,
     status     VARCHAR(25) NOT NULL DEFAULT 'Client'
