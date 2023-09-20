@@ -1,5 +1,6 @@
-package com.example.saloon.entity;
+package com.example.saloon.reservation;
 
+import com.example.saloon.room.Room;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

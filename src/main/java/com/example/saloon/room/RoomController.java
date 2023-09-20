@@ -1,9 +1,9 @@
-package com.example.saloon.controller;
+package com.example.saloon.room;
 
-import com.example.saloon.status.RoomStatus;
-import com.example.saloon.entity.Room;
-import com.example.saloon.repo.RoomRepo;
-import com.example.saloon.service.RoomService;
+import com.example.saloon.room.RoomStatus;
+import com.example.saloon.room.Room;
+import com.example.saloon.room.RoomRepo;
+import com.example.saloon.room.RoomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class RoomController {
     private final RoomRepo roomRepo;
 
     @RequestMapping("/getAll")
-    public List<Room> getAllRooms() {
+    public List<RoomDto> getAllRooms() {
         return roomService.getAll();
     }
 
@@ -38,5 +38,13 @@ public class RoomController {
             roomRepo.save(roomEntity);
             return ResponseEntity.ok("Room status has changed");
         }
+    }
+
+    @GetMapping("/{room}/capacity")
+    public ResponseEntity getCapacity(@PathVariable Integer room){
+        Room roomEntity = roomRepo.findByRoom(room);
+        if (roomEntity == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Room not found");
+        } else return ResponseEntity.ok(roomEntity.getCapacity());
     }
 }

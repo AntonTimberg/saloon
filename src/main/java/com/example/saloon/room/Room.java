@@ -1,7 +1,8 @@
-package com.example.saloon.entity;
+package com.example.saloon.room;
 
-import com.example.saloon.status.RoomClass;
-import com.example.saloon.status.RoomStatus;
+import com.example.saloon.reservation.Reservation;
+import com.example.saloon.room.RoomClass;
+import com.example.saloon.room.RoomStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,11 +17,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "rooms")
+@Table(name = "room")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

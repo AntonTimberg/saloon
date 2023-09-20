@@ -1,11 +1,11 @@
-package com.example.saloon.status;
+package com.example.saloon.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum UserStatus {
+public enum MemberStatus {
     ADMIN("Administrator"),
     STAFF("Stuff"),
     CLIENT("Client"),

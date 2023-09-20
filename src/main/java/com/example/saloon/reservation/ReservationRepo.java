@@ -1,12 +1,8 @@
-package com.example.saloon.repo;
+package com.example.saloon.reservation;
 
-import com.example.saloon.entity.Reservation;
-import com.example.saloon.entity.Room;
+import com.example.saloon.reservation.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Date;
-import java.util.List;
 
 @Repository
 public interface ReservationRepo extends JpaRepository<Reservation, Long> {

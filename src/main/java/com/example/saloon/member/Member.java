@@ -1,6 +1,5 @@
-package com.example.saloon.entity;
+package com.example.saloon.member;
 
-import com.example.saloon.status.UserStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,7 +14,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Max;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 @Entity
@@ -23,8 +21,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "users")
-public class Users {
+@Table(name = "member")
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,5 +44,5 @@ public class Users {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private UserStatus status = UserStatus.CLIENT;
+    private MemberStatus status = MemberStatus.CLIENT;
 }

@@ -1,7 +1,7 @@
-package com.example.saloon.controller;
+package com.example.saloon.registration;
 
-import com.example.saloon.entity.Users;
-import com.example.saloon.service.UserService;
+import com.example.saloon.member.Member;
+import com.example.saloon.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,29 +19,29 @@ import java.util.Optional;
 public class RegistrationController {
 
     @Autowired
-    private UserService userService;
+    private MemberService memberService;
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new Users());
+        model.addAttribute("user", new Member());
         return "registration";
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") @Valid Users user, BindingResult bindingResult,
+    public String registerUser(@ModelAttribute("user") @Valid Member user, BindingResult bindingResult,
                                @RequestParam("birthdate") String birthdate) {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
 
-        Optional<Users> existingUser = Optional.ofNullable(userService.findByLogin(user.getLogin()));
+        Optional<Member> existingUser = Optional.ofNullable(memberService.findByLogin(user.getLogin()));
         if (existingUser.isPresent()) {
             bindingResult.rejectValue("login", "error.user", "An account already exists for this login.");
             return "registration";
         }
 
         user.setBirthDay(LocalDate.parse(birthdate));
-        userService.createUser(user);
+        memberService.createMember(user);
         return "redirect:/login";
     }
 }

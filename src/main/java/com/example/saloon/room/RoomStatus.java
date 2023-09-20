@@ -1,4 +1,4 @@
-package com.example.saloon.status;
+package com.example.saloon.room;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

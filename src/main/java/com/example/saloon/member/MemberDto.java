@@ -1,15 +1,13 @@
-package com.example.saloon.dto;
+package com.example.saloon.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDate;
-
 @Builder
 @Getter
 @AllArgsConstructor
-public class UserDto {
+public class MemberDto {
     private Integer room;
 
     private String name;

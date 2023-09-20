@@ -1,7 +1,5 @@
-package com.example.saloon.converter;
+package com.example.saloon.member;
 
-import com.example.saloon.dto.UserDto;
-import com.example.saloon.entity.Users;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -9,11 +7,11 @@ import java.time.LocalDate;
 import java.time.Period;
 
 @Component
-public class UserConverter implements Converter<Users, UserDto> {
+public class MemberConverter implements Converter<Member, MemberDto> {
 
     @Override
-    public UserDto convert(Users source) {
-        return UserDto.builder()
+    public MemberDto convert(Member source) {
+        return MemberDto.builder()
                 .room(source.getRoom())
                 .name(source.getName())
                 .surName(source.getSurname())

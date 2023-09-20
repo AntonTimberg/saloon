@@ -1,6 +1,6 @@
-CREATE TABLE users
+CREATE TABLE member
 (
-    id         BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id         BIGINT  AUTO_INCREMENT PRIMARY KEY,
     room       INTEGER UNIQUE CHECK (room >= 1 AND room <= 7),
     name       VARCHAR(35) NOT NULL,
     surname    VARCHAR(35) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE users
     status     VARCHAR(25) NOT NULL DEFAULT 'Client'
 );
 
-CREATE TABLE rooms
+CREATE TABLE room
 (
     id          BIGINT  AUTO_INCREMENT PRIMARY KEY,
     room        INTEGER UNIQUE NOT NULL,
