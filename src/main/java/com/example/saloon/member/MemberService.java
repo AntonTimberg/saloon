@@ -16,4 +16,6 @@ public interface MemberService {
     void deleteMemberByLogin(String login);
 
     Member findByLogin(String login);
+
+    boolean loginIsExist(String login);
 }

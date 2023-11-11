@@ -2,27 +2,33 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Registration</title>
-    <link rel="stylesheet" type="text/css" href="regStyle.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 <h1>Registration</h1>
 <form th:action="@{/register}" method="post" th:object="${user}">
     <label for="name">Name:</label>
-    <input type="text" id="name" name="name" pattern="[A-Za-zА-Яа-я]+" maxlength="25" required><br>
+    <input type="text" id="name" name="name" th:value="${user.name}" pattern="[A-Za-zА-Яа-я]+" maxlength="25" required><br>
+
     <label for="surname">Surname:</label>
-    <input type="text" id="surname" name="surname" pattern="[A-Za-zА-Яа-я]+" maxlength="25" required><br>
+    <input type="text" id="surname" name="surname" th:value="${user.surname}" pattern="[A-Za-zА-Яа-я]+" maxlength="25" required><br>
+
     <label for="gender">Gender:</label>
     <select id="gender" name="gender" required>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
+        <option value="male" th:selected="${user.gender == 'male'}">Male</option>
+        <option value="female" th:selected="${user.gender == 'female'}">Female</option>
     </select><br>
+
     <label for="birthdate">Birthdate:</label>
-    <input type="date" id="birthdate" name="birthdate" required><br>
+    <input type="date" id="birthdate" name="birthdate" th:value="${user.birthDay != null ? #dates.format(user.birthDay, 'yyyy-MM-dd') : ''}" required><br>
+
     <label for="login">Login:</label>
-    <input type="text" id="login" name="login" th:field="*{login}" pattern="[A-Za-z0-9]+" minlength="3" maxlength="20" required><br>
+    <input type="text" id="login" name="login" th:value="${user.login}" pattern="[A-Za-z0-9]+" minlength="3" maxlength="20" required onblur="checkLogin()">
     <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="error-message"></span>
+
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" pattern="[A-Za-z0-9]+" minlength="3" maxlength="20" required><br>
+    <input type="password" id="password" name="password" th:value="${user.password}" pattern="[A-Za-z0-9]+" minlength="3" maxlength="20" required><br>
+
     <input type="submit" value="Register">
 </form>
 </body>

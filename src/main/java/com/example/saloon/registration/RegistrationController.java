@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -29,19 +32,27 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") @Valid Member user, BindingResult bindingResult,
-                               @RequestParam("birthdate") String birthdate) {
+                               Model model, @RequestParam("birthdate") String birthdate) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("user", user);
             return "registration";
         }
 
-        Optional<Member> existingUser = Optional.ofNullable(memberService.findByLogin(user.getLogin()));
-        if (existingUser.isPresent()) {
+        if (memberService.loginIsExist(user.getLogin())) {
             bindingResult.rejectValue("login", "error.user", "An account already exists for this login.");
+            model.addAttribute("user", user);
             return "registration";
         }
 
         user.setBirthDay(LocalDate.parse(birthdate));
         memberService.createMember(user);
         return "redirect:/login";
+    }
+
+    @GetMapping("/check-login")
+    @ResponseBody
+    public Map<String, Boolean> checkLogin(@RequestParam String login) {
+        boolean loginExists = memberService.loginIsExist(login);
+        return Collections.singletonMap("loginExists", loginExists);
     }
 }

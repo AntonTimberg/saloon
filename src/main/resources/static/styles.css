@@ -60,3 +60,16 @@ span.error-message {
     color: red;
     margin-top: 5px;
 }
+
+/*.error-popup {*/
+/*    position: fixed; */
+/*    left: 50%;*/
+/*    top: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*    background-color: white;*/
+/*    color: red;*/
+/*    padding: 15px;*/
+/*    border: 1px solid black;*/
+/*    border-radius: 5px;*/
+/*    z-index: 1000;*/
+/*}*/

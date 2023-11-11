@@ -8,5 +8,8 @@ public interface MemberRepo extends JpaRepository<Member, Long> {
     Member findByRoom(Integer room);
 
     Member findByLogin(String login);
+
     Long findIdByLogin(String login);
+
+    boolean existsByLogin(String login);
 }

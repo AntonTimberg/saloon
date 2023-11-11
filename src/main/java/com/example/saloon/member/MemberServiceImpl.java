@@ -59,4 +59,9 @@ public class MemberServiceImpl implements MemberService {
     public Member findByLogin(String login) {
         return memberRepo.findByLogin(login);
     }
+
+    @Override
+    public boolean loginIsExist(String login) {
+        return memberRepo.existsByLogin(login);
+    }
 }
