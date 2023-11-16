@@ -8,7 +8,7 @@ CREATE TABLE member
     birthdate  DATE NOT NULL,
     login      VARCHAR(15) NOT NULL UNIQUE,
     password   VARCHAR(15) NOT NULL,
-    status     VARCHAR(25) NOT NULL DEFAULT 'Client'
+    status     VARCHAR(25) NOT NULL DEFAULT 'CLIENT'
 );
 
 CREATE TABLE room

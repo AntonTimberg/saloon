@@ -3,6 +3,7 @@ package com.example.saloon.registration;
 import com.example.saloon.member.Member;
 import com.example.saloon.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,14 +26,20 @@ public class RegistrationController {
     private MemberService memberService;
 
     @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
+    public String showRegistrationForm(Model model, Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "redirect:/";
+        }
         model.addAttribute("user", new Member());
         return "registration";
     }
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") @Valid Member user, BindingResult bindingResult,
-                               Model model, @RequestParam("birthdate") String birthdate) {
+                               Model model, @RequestParam("birthdate") String birthdate, Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "redirect:/";
+        }
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
             return "registration";

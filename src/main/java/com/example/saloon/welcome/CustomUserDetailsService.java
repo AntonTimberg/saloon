@@ -26,12 +26,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (member == null) {
             throw new UsernameNotFoundException("User not found with login: " + username);
         }
-        return new User(member.getLogin(), member.getPassword(), getAuthorities(member));
-    }
-
-    private Collection<? extends GrantedAuthority> getAuthorities(Member user) {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-                authorities.add(new SimpleGrantedAuthority(user.getStatus().toString()));
-        return authorities;
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + member.getStatus().toString()));
+        return new User(member.getLogin(), member.getPassword(), authorities);
     }
 }

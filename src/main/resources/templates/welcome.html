@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Saloon</title>
-  <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>SALOON</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-<div class="header">
-  <a href="/login" class="button">Login</a>
-  <a href="/register" class="button">Register</a>
-</div>
 <h1>Saloon</h1>
-
+<div class="fixed-banner">
+    <div class="right-buttons">
+        <a href="/login" class="bannerbutton">Login</a>
+        <a href="/register" class="bannerbutton">Register</a>
+    </div>
+</div>
 <style>
-  body {
-    background-color: #667369;
-    font-family: Arial, sans-serif;
-    color: white;
+    h1 {
+        font-size: 48px;
+        text-transform: uppercase;
+        transform: rotate(-45deg);
+        position: absolute;
+        left: 0;
+        top: 20px;
+        z-index: 1000;
+    }
+
+  .right-buttons {
+    height: 100%;
+    margin-right: 20px;
+    float: right;
   }
 
-  .header {
-    text-align: right;
-    padding: 10px;
-  }
-
-  .button {
-    background-color: #3498db;
+  .bannerbutton {
+    background-color: #49c5b6;
     color: white;
     padding: 10px 20px;
-    border-radius: 5px;
     border: none;
     cursor: pointer;
     text-decoration: none;
-    margin: 0 5px;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
   }
 
-  .button:hover {
+  .bannerbutton:hover {
     background-color: #2980b9;
-  }
-
-  h1 {
-    text-align: center;
-    margin-top: 50px;
   }
 </style>
 </body>
