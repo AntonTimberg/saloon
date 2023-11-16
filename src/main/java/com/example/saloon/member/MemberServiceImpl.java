@@ -64,4 +64,9 @@ public class MemberServiceImpl implements MemberService {
     public boolean loginIsExist(String login) {
         return memberRepo.existsByLogin(login);
     }
+
+    @Override
+    public MemberStatus getStatus() {
+        return getStatus();
+    }
 }

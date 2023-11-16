@@ -18,4 +18,6 @@ public interface MemberService {
     Member findByLogin(String login);
 
     boolean loginIsExist(String login);
+
+    MemberStatus getStatus();
 }
