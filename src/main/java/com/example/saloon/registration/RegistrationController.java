@@ -28,7 +28,7 @@ public class RegistrationController {
     @GetMapping("/register")
     public String showRegistrationForm(Model model, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
-            return "redirect:/";
+            return "redirect:/firstPage";
         }
         model.addAttribute("user", new Member());
         return "registration";
@@ -38,7 +38,7 @@ public class RegistrationController {
     public String registerUser(@ModelAttribute("user") @Valid Member user, BindingResult bindingResult,
                                Model model, @RequestParam("birthdate") String birthdate, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
-            return "redirect:/";
+            return "redirect:/firstPage";
         }
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);

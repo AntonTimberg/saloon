@@ -15,12 +15,12 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @SpringBootApplication
 public class SaloonApplication {
-    @Autowired
-    private AuthenticationSuccessHandler myAuthenticationSuccessHandler;
-
     public static void main(String[] args) {
         SpringApplication.run(SaloonApplication.class, args);
     }
+
+    @Autowired
+    private AuthenticationSuccessHandler myAuthenticationSuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector handlerMappingIntrospector) throws Exception {
@@ -29,6 +29,7 @@ public class SaloonApplication {
         MvcRequestMatcher loginMatcher = new MvcRequestMatcher(handlerMappingIntrospector, "/login");
         MvcRequestMatcher stylesMatcher = new MvcRequestMatcher(handlerMappingIntrospector, "/styles.css");
         MvcRequestMatcher getAllMatcher = new MvcRequestMatcher(handlerMappingIntrospector, "/users/getAll");
+        //MvcRequestMatcher firstMatcher = new MvcRequestMatcher(handlerMappingIntrospector, "/firstPage");
 
         return http
                 .csrf().disable()

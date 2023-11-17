@@ -1,4 +1,4 @@
-package com.example.saloon.welcome;
+package com.example.saloon.securityAndAuthorization;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +15,6 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        response.sendRedirect("/");
+        response.sendRedirect("/firstPage");
     }
 }

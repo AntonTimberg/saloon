@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Saloon</h1>
-<div class="fixed-banner">
+<div class="first-banner">
     <div class="right-buttons">
         <a href="/login" class="bannerbutton">Login</a>
         <a href="/register" class="bannerbutton">Register</a>
@@ -23,11 +23,20 @@
         z-index: 1000;
     }
 
-  .right-buttons {
-    height: 100%;
-    margin-right: 20px;
-    float: right;
-  }
+    .first-banner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #49c5b6;
+        color: white;
+        display: flex;
+        align-items: center;
+    }
+
+    .right-buttons {
+        margin-left: auto;
+    }
 
   .bannerbutton {
     background-color: #49c5b6;

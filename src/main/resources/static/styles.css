@@ -70,18 +70,43 @@ span.error-message {
     background-color: #49c5b6;
     color: white;
     text-align: center;
-    /*padding: 10px;*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/*.error-popup {*/
-/*    position: fixed; */
-/*    left: 50%;*/
-/*    top: 50%;*/
-/*    transform: translate(-50%, -50%);*/
-/*    background-color: white;*/
-/*    color: red;*/
-/*    padding: 15px;*/
-/*    border: 1px solid black;*/
-/*    border-radius: 5px;*/
-/*    z-index: 1000;*/
-/*}*/
+.right-buttons {
+    height: 100%;
+    margin-right: 20px;
+    float: right;
+}
+
+.bannerbutton {
+    background-color: #49c5b6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.bannerbutton:hover {
+    background-color: #2980b9;
+}
+
+.user-info {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.user-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #ddd; /* Примерный цвет, здесь можно добавить изображение */
+    border-radius: 50%;
+    margin-right: 10px;
+}
