@@ -24,6 +24,6 @@ public class LoginController {
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, null, auth);
         }
-        return "welcome"; // Перенаправление на страницу входа
+        return "welcome";
     }
 }

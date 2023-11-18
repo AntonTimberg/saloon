@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Редактирование пользователя</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+</head>
+<body>
+<h1>Ваш профиль</h1>
+<div class="form-container">
+  <form th:action="@{/members/edit}" method="post" th:object="${member}">
+    <input type="hidden" th:field="*{id}" />
+
+    <label for="name">Имя:</label>
+    <input type="text" id="name" th:field="*{name}" readonly><br>
+
+    <label for="surname">Фамилия:</label>
+    <input type="text" id="surname" th:field="*{surname}" readonly><br>
+
+    <label for="gender">Пол:</label>
+    <select id="gender" name="gender" readonly disabled th:field="*{gender}">
+      <option value="MALE" th:selected="${member.gender == 'MALE'}">Мужской</option>
+      <option value="FEMALE" th:selected="${member.gender == 'FEMALE'}">Женский</option>
+    </select>
+    <input type="hidden" name="gender" th:value="${member.gender}"><br>
+
+    <label for="birthdate">Дата рождения:</label>
+    <input type="date" id="birthdate" th:value="${member.birthDay}" readonly>
+    <input type="hidden" name="birthDay" th:value="${member.birthDay}"><br>
+
+    <label for="login">Логин:</label>
+    <input type="text" id="login" th:field="*{login}" readonly><br>
+
+    <label for="password">Новый пароль:</label>
+    <input type="password" id="password" name="password" required><br>
+
+    <label for="confirmPassword">Подтвердите пароль:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required><br>
+
+    <span th:if="${passwordError}" th:text="${passwordError}" class="error-message"></span>
+    <span th:if="${successMessage}" th:text="${successMessage}" class="success-message"></span>
+    <input type="submit" value="Сохранить">
+  </form>
+</div>
+
+</body>
+</html>

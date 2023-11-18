@@ -1,7 +1,10 @@
 package com.example.saloon.registration;
 
 import com.example.saloon.member.Member;
+import com.example.saloon.member.MemberController;
 import com.example.saloon.member.MemberService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,10 +20,10 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 public class RegistrationController {
+    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
     @Autowired
     private MemberService memberService;
@@ -40,18 +43,20 @@ public class RegistrationController {
         if (authentication != null && authentication.isAuthenticated()) {
             return "redirect:/firstPage";
         }
+        user.setBirthDay(LocalDate.parse(birthdate));
         if (bindingResult.hasErrors()) {
+
             model.addAttribute("user", user);
             return "registration";
         }
 
         if (memberService.loginIsExist(user.getLogin())) {
+            logger.info("Login already exists: " + user.getLogin());
             bindingResult.rejectValue("login", "error.user", "An account already exists for this login.");
             model.addAttribute("user", user);
             return "registration";
         }
 
-        user.setBirthDay(LocalDate.parse(birthdate));
         memberService.createMember(user);
         return "redirect:/login";
     }

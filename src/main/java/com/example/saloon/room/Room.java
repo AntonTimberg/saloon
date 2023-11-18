@@ -1,8 +1,7 @@
 package com.example.saloon.room;
 
 import com.example.saloon.reservation.Reservation;
-import com.example.saloon.room.RoomClass;
-import com.example.saloon.room.RoomStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
