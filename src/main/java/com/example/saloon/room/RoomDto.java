@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class RoomDto {
-    private Integer room;
+    private Integer roomNumber;
     private RoomStatus roomStatus;
     private RoomClass roomClass;
     private List<Reservation> reservationList;

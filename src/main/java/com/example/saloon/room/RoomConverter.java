@@ -9,7 +9,7 @@ public class RoomConverter implements Converter<Room, RoomDto> {
     @Override
     public RoomDto convert(Room source) {
         return RoomDto.builder()
-                .room(source.getRoom())
+                .roomNumber(source.getRoomNumber())
                 .roomClass(source.getRoomclass())
                 .roomStatus(source.getStatus())
                 .capacity(source.getCapacity())

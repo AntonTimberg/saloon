@@ -12,4 +12,6 @@ public interface MemberRepo extends JpaRepository<Member, Long> {
     Long findIdByLogin(String login);
 
     boolean existsByLogin(String login);
+
+
 }

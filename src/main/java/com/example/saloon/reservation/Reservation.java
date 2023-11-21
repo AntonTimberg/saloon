@@ -1,6 +1,8 @@
 package com.example.saloon.reservation;
 
 import com.example.saloon.room.Room;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,9 +28,13 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "roomid")
+    @JoinColumn(name = "room")
+    @JsonBackReference
     private Room room;
+    @Column(name = "reservationfrom")
     private Date reservationFrom;
+    @Column(name = "reservationuntil")
     private Date reservationUntil;
-    private Integer userId;
+    @Column(name = "userid")
+    private Long userId;
 }

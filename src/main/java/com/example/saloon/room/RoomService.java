@@ -1,5 +1,7 @@
 package com.example.saloon.room;
 
+import com.example.saloon.reservation.ReservationDto;
+
 import java.util.List;
 
 public interface RoomService {
@@ -8,4 +10,7 @@ public interface RoomService {
     void updateStatus(Integer roomNumber, RoomStatus status);
 
     Integer getCapacity(Integer roomNumber);
+
+    Room getByRoomNumber(Integer roomNumber);
+    List<ReservationDto> getReservationsForRoom(Integer roomNumber);
 }

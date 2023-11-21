@@ -3,16 +3,22 @@ package com.example.saloon.reservation;
 import com.example.saloon.room.Room;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 @Builder
-@Getter
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ReservationDto {
     private Room room;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date reservationFrom;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date reservationUntil;
-    private Integer userId;
+    private Long userId;
 }

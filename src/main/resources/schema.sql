@@ -14,7 +14,7 @@ CREATE TABLE member
 CREATE TABLE room
 (
     id          BIGINT  AUTO_INCREMENT PRIMARY KEY,
-    room        INTEGER UNIQUE NOT NULL,
+    room_number        INTEGER UNIQUE NOT NULL,
     status      VARCHAR NOT NULL,
     roomclass   VARCHAR NOT NULL,
     capacity    INTEGER NOT NULL,

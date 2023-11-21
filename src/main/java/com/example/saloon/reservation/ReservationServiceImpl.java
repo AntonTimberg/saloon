@@ -1,9 +1,13 @@
 package com.example.saloon.reservation;
 
+import com.example.saloon.member.Member;
+import com.example.saloon.member.MemberRepo;
 import com.example.saloon.room.Room;
 import com.example.saloon.room.RoomRepo;
 import com.example.saloon.room.RoomStatus;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -13,29 +17,63 @@ import java.util.Date;
 public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepo reservationRepo;
     private final RoomRepo roomRepo;
+    private final ReservationConverter reservationConverter;
+    private final MemberRepo memberRepo;
 
     @Override
-    public Reservation createReservation(ReservationDto reservationDto) {
-//        Room room = roomRepo.findByRoom(reservationDto.getRoomNumber());
-//        if (room == null || !isRoomAvailable(room, reservationDto.getReservationFrom(), reservationDto.getReservationUntil())) {
-//            throw new RoomNotAvailableException("Комната не доступна или не существует");
-//        }
-//        Reservation reservation = convertToReservation(reservationDto, room);
-//        reservationRepo.save(reservation);
-//        updateRoomStatus(room, RoomStatus.OCCUPIED);
-//        return reservation;
-        return null;
+    public Reservation createReservation(ReservationDto reservationDto, Integer roomNumber) {
+        Room room = roomRepo.findByRoomNumber(roomNumber);
+        if (room == null) {
+            throw new NullPointerException("Комната не существует");
+        }
+        if (!isRoomAvailable(room, reservationDto.getReservationFrom(),
+                reservationDto.getReservationUntil())) {
+            throw new RoomUnavailableException("Комната уже забронирована на этот период");
+        }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        Member currentUser = memberRepo.findByLogin(currentUserName);
+
+        Reservation reservation = Reservation.builder()
+                .room(room)
+                .reservationFrom(reservationDto.getReservationFrom())
+                .reservationUntil(reservationDto.getReservationUntil())
+                .userId(currentUser.getId())
+                .build();
+
+        reservationRepo.save(reservation);
+
+        return reservation;
     }
 
     @Override
     public boolean isRoomAvailable(Room room, Date from, Date until) {
-        return false;
+        return room.getReservationList().stream()
+                .noneMatch(reservation ->
+                        reservation.getReservationFrom().before(until) &&
+                                reservation.getReservationUntil().after(from)
+                );
     }
 
     @Override
     public Reservation convertToReservation(ReservationDto reservationDto, Room room) {
-        return null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        Member currentUser = memberRepo.findByLogin(currentUserName);
+
+        return Reservation.builder()
+                .room(room)
+                .reservationFrom(reservationDto.getReservationFrom())
+                .reservationUntil(reservationDto.getReservationUntil())
+                .userId(currentUser.getId())
+                .build();
     }
+
+//    public List<ReservationDto> getReservationsByRoomNumber(Integer roomNumber) {
+//        List<Reservation> reservations = reservationRepo.findByRoom_RoomNumber(roomNumber);
+//        return reservations.stream().map(a -> reservationConverter.convert(a)).collect(Collectors.toList());
+//    }
 
     @Override
     public void updateRoomStatus(Room room, RoomStatus status) {

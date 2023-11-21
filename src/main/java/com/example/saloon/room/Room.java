@@ -2,6 +2,8 @@ package com.example.saloon.room;
 
 import com.example.saloon.reservation.Reservation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -29,8 +31,8 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "room")
-    private Integer room;
+    @Column(name = "room_number")
+    private Integer roomNumber;
 
     @Enumerated(EnumType.STRING)
     private RoomStatus status;
@@ -40,6 +42,7 @@ public class Room {
     private RoomClass roomclass;
 
     @OneToMany(mappedBy = "room")
+    @JsonManagedReference
     private List<Reservation> reservationList;
 
     private Integer capacity;

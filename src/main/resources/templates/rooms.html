@@ -11,30 +11,20 @@
 
 <div class="rooms-container">
   <div th:each="room : ${rooms}" class="room">
-    <h2 th:text="'Комната №' + ${room.room}"></h2>
+    <a th:href="@{'/reservations/create/' + ${room.roomNumber}}">
+      <h2 th:text="'Комната №' + ${room.roomNumber}"></h2>
 
-    <div class="room-photo">
-      <img th:if="${room.image}" th:src="@{'/images/rooms/' + ${room.image}}" alt="Room photo"/>
+      <div class="room-photo">
+        <img th:if="${room.image}" th:src="@{'/images/rooms/' + ${room.image}}" alt="Room photo"/>
+        <img th:unless="${room.image}" src="/images/rooms/notFound.jpg" alt="Default room photo"/>
+      </div>
 
-      <img th:unless="${room.image}" src="/images/rooms/notFound.jpg" alt="Default room photo"/>
-    </div>
-
-    <table>
-      <thead>
-      <tr>
-        <th>Класс</th>
-        <th>Статус</th>
-        <th>Вместимость</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td th:text="${room.roomClass}"></td>
-        <td th:text="${room.roomStatus}"></td>
-        <td th:text="${room.capacity}"></td>
-      </tr>
-      </tbody>
-    </table>
+      <div class="room-info">
+        <p th:text="'Класс: ' + ${room.roomClass}"></p>
+        <p th:text="'Статус: ' + ${room.roomStatus}"></p>
+        <p th:text="'Вместимость: ' + ${room.capacity}"></p>
+      </div>
+    </a>
   </div>
 </div>
 
