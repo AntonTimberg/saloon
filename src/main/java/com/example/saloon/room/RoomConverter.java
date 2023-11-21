@@ -13,6 +13,8 @@ public class RoomConverter implements Converter<Room, RoomDto> {
                 .roomClass(source.getRoomclass())
                 .roomStatus(source.getStatus())
                 .capacity(source.getCapacity())
+                .reservationList(source.getReservationList())
+                .image(source.getImage())
                 .build();
     }
 }

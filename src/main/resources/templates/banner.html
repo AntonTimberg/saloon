@@ -1,10 +1,12 @@
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="banner" class="fixed-banner">
-  <a th:href="@{/members/edit}" class="user-info-link">
-    <div class="user-info">
+  <div class="user-info">
+    <a th:href="@{/members/edit}" class="user-info-link">
       <div class="user-icon"></div>
       <span th:text="${userFirstName} + ' ' + ${userLastName}">Имя Фамилия</span>
-    </div>
-  </a>
+    </a>
+    <a th:href="@{/rooms/getAll}" class="bannerbutton">Rooms</a>
+  </div>
+
   <div class="right-buttons">
     <a href="/logout" class="bannerbutton">Logout</a>
   </div>

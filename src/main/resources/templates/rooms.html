@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Список комнат</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+</head>
+<body>
+<div th:replace="~{banner :: banner}"></div>
+
+<h1>Список комнат</h1>
+
+<div class="rooms-container">
+  <div th:each="room : ${rooms}" class="room">
+    <h2 th:text="'Комната №' + ${room.room}"></h2>
+
+    <div class="room-photo">
+      <img th:if="${room.image}" th:src="@{'/images/rooms/' + ${room.image}}" alt="Room photo"/>
+
+      <img th:unless="${room.image}" src="/images/rooms/notFound.jpg" alt="Default room photo"/>
+    </div>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Класс</th>
+        <th>Статус</th>
+        <th>Вместимость</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td th:text="${room.roomClass}"></td>
+        <td th:text="${room.roomStatus}"></td>
+        <td th:text="${room.capacity}"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

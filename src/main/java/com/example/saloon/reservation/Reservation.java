@@ -28,7 +28,7 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "roomid")
     private Room room;
-    Date reservationFrom;
-    Date reservationUntil;
-    Integer userId;
+    private Date reservationFrom;
+    private Date reservationUntil;
+    private Integer userId;
 }

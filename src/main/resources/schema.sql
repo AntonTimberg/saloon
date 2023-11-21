@@ -17,7 +17,8 @@ CREATE TABLE room
     room        INTEGER UNIQUE NOT NULL,
     status      VARCHAR NOT NULL,
     roomclass   VARCHAR NOT NULL,
-    capacity    INTEGER NOT NULL 
+    capacity    INTEGER NOT NULL,
+    image_path  VARCHAR(255)
 );
 
 CREATE TABLE reservation

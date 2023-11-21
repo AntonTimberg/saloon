@@ -1,6 +1,13 @@
 package com.example.saloon.reservation;
 
-public interface ReservationService {
-    Reservation createReservation(Reservation reservation);
+import com.example.saloon.room.Room;
+import com.example.saloon.room.RoomStatus;
 
+import java.util.Date;
+
+public interface ReservationService {
+    Reservation createReservation(ReservationDto reservationDto);
+    boolean isRoomAvailable(Room room, Date from, Date until);
+    Reservation convertToReservation(ReservationDto reservationDto, Room room);
+    void updateRoomStatus(Room room, RoomStatus status);
 }

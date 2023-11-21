@@ -43,4 +43,7 @@ public class Room {
     private List<Reservation> reservationList;
 
     private Integer capacity;
+
+    @Column(name = "image_path")
+    private String image;
 }

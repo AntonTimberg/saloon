@@ -5,6 +5,7 @@
   <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
 </head>
 <body>
+<div th:replace="~{banner :: banner}"></div>
 <h1>Ваш профиль</h1>
 <div class="form-container">
   <form th:action="@{/members/edit}" method="post" th:object="${member}">

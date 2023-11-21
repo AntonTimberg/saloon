@@ -1,16 +1,20 @@
 package com.example.saloon.room;
 
+import com.example.saloon.reservation.Reservation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+
+import java.util.List;
 
 @Builder
-@Getter
+@Data
 @AllArgsConstructor
 public class RoomDto {
     private Integer room;
     private RoomStatus roomStatus;
     private RoomClass roomClass;
-    //private List<Reservation> reservationList;
+    private List<Reservation> reservationList;
     private Integer capacity;
+    private String image;
 }
