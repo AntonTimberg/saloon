@@ -1,12 +1,12 @@
-INSERT INTO member(room, name, surname, gender, birthdate, login, password, status)
-VALUES (1,'Domenic', 'Linderman', 'male', '1963-11-06', 'user', 'user', 'CLIENT'),
-       (null, 'Salvatore', 'Ganacci', 'male', '1934-04-26', 'admin', 'admin', 'ADMIN');
+INSERT INTO member(name, surname, gender, birthdate, login, password, status)
+VALUES ('Domenic', 'Linderman', 'male', '1963-11-06', 'user', 'user', 'CLIENT'),
+       ('Salvatore', 'Ganacci', 'male', '1934-04-26', 'admin', 'admin', 'ADMIN');
 
 INSERT INTO room(room_number, status, roomclass, capacity, image_path)
-VALUES (1, 'OCCUPIED',  'PALACE', 4, 'PALACE.jpg'),
+VALUES (1, 'AVAILABLE',  'PALACE', 4, 'PALACE.jpg'),
        (2, 'AVAILABLE', 'VIP', 2, 'VIP.jpg'),
        (3, 'AVAILABLE', 'NORMAL', 1, 'normal.jpg'),
-       (4, 'AVAILABLE', 'PRESIDENT', 3, 'PRESIDENT.jpg'),
+       (4, 'OCCUPIED', 'PRESIDENT', 3, 'PRESIDENT.jpg'),
        (5, 'AVAILABLE', 'VIP', 2, 'VIP.jpg'),
        (6, 'AVAILABLE', 'NORMAL', 2, 'normal.jpg'),
        (7, 'AVAILABLE', 'NORMAL', 1, 'normal.jpg'),

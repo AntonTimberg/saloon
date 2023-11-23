@@ -7,10 +7,6 @@ public interface MemberService {
 
     List<MemberDto> getAll();
 
-    MemberDto getMemberByRoom(Integer room);
-
-    void deleteMemberByRoom(Integer room);
-
     MemberDto updateMember(Member user);
 
     void deleteMemberByLogin(String login);
@@ -20,4 +16,6 @@ public interface MemberService {
     boolean loginIsExist(String login);
 
     MemberStatus getStatus();
+
+    void validateMember(Member member);
 }

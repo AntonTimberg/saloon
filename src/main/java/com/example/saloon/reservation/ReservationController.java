@@ -27,7 +27,7 @@ public class ReservationController {
         Room room = roomService.getByRoomNumber(roomNumber);
         model.addAttribute("room", roomConverter.convert(room));
         ReservationDto reservationDto = new ReservationDto();
-        reservationDto.setRoom(roomService.getByRoomNumber(roomNumber));
+        reservationDto.setRoomNumber(roomNumber);
         return "createReservation";
     }
 

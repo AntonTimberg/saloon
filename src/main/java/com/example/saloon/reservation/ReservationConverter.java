@@ -12,7 +12,7 @@ public class ReservationConverter implements Converter<Reservation, ReservationD
         }
 
         return ReservationDto.builder()
-                .room(source.getRoom())
+                .roomNumber(source.getRoom().getRoomNumber())
                 .reservationFrom(source.getReservationFrom())
                 .reservationUntil(source.getReservationUntil())
                 .userId(source.getUserId())

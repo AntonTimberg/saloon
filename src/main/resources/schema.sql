@@ -1,7 +1,6 @@
 CREATE TABLE member
 (
     id         BIGINT  AUTO_INCREMENT PRIMARY KEY,
-    room       INTEGER UNIQUE CHECK (room >= 1 AND room <= 7),
     name       VARCHAR(35) NOT NULL,
     surname    VARCHAR(35) NOT NULL,
     gender     VARCHAR(10) NOT NULL,

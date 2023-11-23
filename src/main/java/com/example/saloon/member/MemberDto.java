@@ -8,17 +8,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class MemberDto {
-    private Integer room;
-
     private String name;
-
     private String surName;
-
     private String gender;
-
     private Integer age;
-
     private String login;
-
     private String status;
 }

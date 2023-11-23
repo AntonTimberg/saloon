@@ -12,8 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Max;
 import java.time.LocalDate;
 
 @Entity
@@ -27,10 +25,6 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    @Min(1)
-    @Max(7)
-    private Integer room;
     private String name;
     private String surname;
 

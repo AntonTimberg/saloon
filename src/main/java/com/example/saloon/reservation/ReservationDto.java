@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationDto {
-    private Room room;
+    private Integer roomNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date reservationFrom;
 

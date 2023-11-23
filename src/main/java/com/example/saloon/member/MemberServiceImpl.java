@@ -3,7 +3,9 @@ package com.example.saloon.member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +17,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDto createMember(Member member) {
+        validateMember(member);
         return memberConverter.convert(memberRepo.save(member));
     }
 
@@ -24,20 +27,6 @@ public class MemberServiceImpl implements MemberService {
                 .map(memberConverter::convert)
                 .toList();
     }
-
-    @Override
-    public MemberDto getMemberByRoom(Integer room) {
-        return memberConverter.convert(memberRepo.findByRoom(room));
-    }
-
-    @Override
-    public void deleteMemberByRoom(Integer room) {
-        Member user = memberRepo.findByRoom(room);
-        if (user != null){
-            memberRepo.delete(user);
-        }
-    }
-
     @Override
     public MemberDto updateMember(Member user) {
         if (memberRepo.existsById(user.getId())){
@@ -68,5 +57,22 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberStatus getStatus() {
         return getStatus();
+    }
+
+    @Override
+    public void validateMember(Member member) {
+        if (!Arrays.asList("male", "female").contains(member.getGender().toLowerCase())) {
+            throw new IllegalArgumentException("Invalid gender");
+        }
+
+        String nameRegex = "^[A-Za-zА-Яа-я]+$";
+        if (!Pattern.matches(nameRegex, member.getName()) || !Pattern.matches(nameRegex, member.getSurname())) {
+            throw new IllegalArgumentException("Name or Surname contains invalid characters");
+        }
+
+        String loginPasswordRegex = "^[A-Za-z0-9]+$";
+        if (!Pattern.matches(loginPasswordRegex, member.getLogin()) || !Pattern.matches(loginPasswordRegex, member.getPassword())) {
+            throw new IllegalArgumentException("Login or Password contains invalid characters");
+        }
     }
 }

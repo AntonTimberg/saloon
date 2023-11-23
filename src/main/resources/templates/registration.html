@@ -20,17 +20,19 @@
     </select><br>
 
     <label for="birthdate">Birthdate:</label>
-    <input type="date" id="birthdate" name="birthdate" th:attr="value=${user.birthDay != null ? #temporals.format(user.birthDay, 'yyyy-MM-dd') : ''}" required>
+    <input type="date" id="birthdate" name="birthdate" th:attr="value=${user.birthDay != null ? #temporals.format(user.birthDay, 'yyyy-MM-dd') : ''}" required><br>
 
     <label for="login">Login:</label>
     <input type="text" id="login" name="login" th:value="${user.login}" placeholder="User111" pattern="[A-Za-z0-9]+" minlength="3" maxlength="20" required onblur="checkLogin()">
-    <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="error-message"></span>
+    <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="error-message"></span><br>
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" th:value="${user.password}" placeholder="Password111" pattern="[A-Za-z0-9]+" minlength="3" maxlength="20" required><br>
+
+    <!-- Блок сообщения об ошибке возраста -->
+    <span th:if="${ageError}" th:text="${ageError}" class="error-message"></span><br>
 
     <input type="submit" value="Register">
 </form>
 </body>
 </html>
-

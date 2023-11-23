@@ -24,11 +24,13 @@ public class ReservationServiceImpl implements ReservationService {
     public Reservation createReservation(ReservationDto reservationDto, Integer roomNumber) {
         Room room = roomRepo.findByRoomNumber(roomNumber);
         if (room == null) {
-            throw new NullPointerException("Комната не существует");
+            throw new NullPointerException("\n" +
+                    "The room does not exist");
         }
         if (!isRoomAvailable(room, reservationDto.getReservationFrom(),
                 reservationDto.getReservationUntil())) {
-            throw new RoomUnavailableException("Комната уже забронирована на этот период");
+            throw new RoomUnavailableException("\n" +
+                    "The room is already booked for this period");
         }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

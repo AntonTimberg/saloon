@@ -12,7 +12,6 @@ public class MemberConverter implements Converter<Member, MemberDto> {
     @Override
     public MemberDto convert(Member source) {
         return MemberDto.builder()
-                .room(source.getRoom())
                 .name(source.getName())
                 .surName(source.getSurname())
                 .gender(source.getGender())

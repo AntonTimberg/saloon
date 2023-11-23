@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MemberRepo extends JpaRepository<Member, Long> {
-    Member findByRoom(Integer room);
-
     Member findByLogin(String login);
 
     Long findIdByLogin(String login);

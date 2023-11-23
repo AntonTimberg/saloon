@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Collections;
 import java.util.Map;
 
@@ -43,7 +44,15 @@ public class RegistrationController {
         if (authentication != null && authentication.isAuthenticated()) {
             return "redirect:/firstPage";
         }
-        user.setBirthDay(LocalDate.parse(birthdate));
+
+        LocalDate birthDate = LocalDate.parse(birthdate);
+        user.setBirthDay(birthDate);
+        if (!isAgeValid(birthDate)) {
+            model.addAttribute("ageError", "Сервис доступен только после 14 лет");
+            model.addAttribute("user", user);
+            return "registration";
+        }
+
         if (bindingResult.hasErrors()) {
 
             model.addAttribute("user", user);
@@ -66,5 +75,9 @@ public class RegistrationController {
     public Map<String, Boolean> checkLogin(@RequestParam String login) {
         boolean loginExists = memberService.loginIsExist(login);
         return Collections.singletonMap("loginExists", loginExists);
+    }
+
+    private boolean isAgeValid(LocalDate birthDate) {
+        return Period.between(birthDate, LocalDate.now()).getYears() >= 14;
     }
 }
