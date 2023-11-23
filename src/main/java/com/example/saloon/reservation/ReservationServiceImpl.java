@@ -11,13 +11,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepo reservationRepo;
     private final RoomRepo roomRepo;
-    private final ReservationConverter reservationConverter;
     private final MemberRepo memberRepo;
 
     @Override
@@ -80,5 +80,10 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void updateRoomStatus(Room room, RoomStatus status) {
 
+    }
+
+    @Override
+    public List<Reservation> getAllByUserId(Long userId) {
+        return reservationRepo.getAllByUserId(userId);
     }
 }

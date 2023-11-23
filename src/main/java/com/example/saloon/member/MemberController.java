@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,24 +15,26 @@ import java.util.List;
 @RequestMapping("/users")
 public class MemberController {
     private final MemberService memberService;
-    private final MemberRepo memberRepo;
+    private final MemberConverter memberConverter;
 
     @RequestMapping ("/getAll")
     public List<MemberDto> getAllUsers(){
-        return memberService.getAll();
+        return memberService.getAll().stream()
+                .map(memberConverter::convert)
+                .toList();
     }
 
     @GetMapping("/deleteByLogin/{login}")
     public ResponseEntity<String> deleteByLogin(@PathVariable String login){
-        Member user = memberRepo.findByLogin(login);
+        Member user = memberService.findByLogin(login);
         if(user == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-        else memberRepo.delete(user);
+        else memberService.deleteMemberByLogin(user.getLogin());
         return ResponseEntity.ok("User deleted successfully");
     }
 
     @GetMapping("/{login}/getStatus")
     public ResponseEntity<String> getStatus(@PathVariable String login){
-        Member user = memberRepo.findByLogin(login);
+        Member user = memberService.findByLogin(login);
         if (user == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         else return ResponseEntity.ok(String.valueOf(user.getStatus()));
     }

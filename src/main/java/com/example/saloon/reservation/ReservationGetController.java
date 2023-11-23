@@ -9,24 +9,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/reservations")
 public class ReservationGetController {
     private final RoomService roomService;
-    private final ReservationRepo reservationRepo;
+    private final ReservationService reservationService;
     private final ReservationConverter reservationConverter;
 
     @GetMapping("/{roomNumber}")
     public ResponseEntity<List<ReservationDto>> getReservations(@PathVariable Integer roomNumber) {
-        List<ReservationDto> reservations = roomService.getReservationsForRoom(roomNumber);
+        List<ReservationDto> reservations = roomService.getReservationsForRoom(roomNumber).stream()
+                .map(a -> reservationConverter.convert(a))
+                .collect(Collectors.toList());
         return ResponseEntity.ok(reservations);
     }
 
     @GetMapping("/getBy/{userId}")
-    public List<ReservationDto> getByUserId(@PathVariable Long userId) {
-        return reservationRepo.getAllByUserId(userId).stream().map(a -> reservationConverter.convert(a)).toList();
+    public ResponseEntity<List<ReservationDto>> getByUserId(@PathVariable Long userId) {
+        List<ReservationDto> reservation = reservationService.getAllByUserId(userId).stream()
+                .map(a -> reservationConverter.convert(a)).toList();
+        return ResponseEntity.ok(reservation);
     }
 }
 

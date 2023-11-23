@@ -1,38 +1,36 @@
 package com.example.saloon.member;
 
-import lombok.AllArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@AllArgsConstructor
+@RequiredArgsConstructor
+@RequestMapping("/members")
 public class MemberEditController {
-    @Autowired
-    MemberRepo memberRepo;
+    private final MemberService memberService;
+    private final MemberConverter memberConverter;
 
-    @Autowired
-    MemberService memberService;
-
-    @GetMapping("/members/edit")
+    @GetMapping("/edit")
     public String editMemberForm(Model model, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
-            Member member = memberRepo.findByLogin(username);
+            Member member = memberService.findByLogin(username);
 
             if (member != null) {
-                model.addAttribute("member", member);
+                model.addAttribute("member", memberConverter.convert(member));
             }
+
         }
         return "edit-member";
     }
 
-    @PostMapping("/members/edit")
+    @PostMapping("/edit")
     public String updateMember(@RequestParam String password,
                                @RequestParam String confirmPassword,
                                Authentication authentication,

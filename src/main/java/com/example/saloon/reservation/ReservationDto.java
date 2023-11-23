@@ -1,6 +1,5 @@
 package com.example.saloon.reservation;
 
-import com.example.saloon.room.Room;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

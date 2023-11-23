@@ -12,25 +12,21 @@ import java.util.regex.Pattern;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepo memberRepo;
 
-    private final MemberConverter memberConverter;
-
-
     @Override
-    public MemberDto createMember(Member member) {
+    public Member createMember(Member member) {
         validateMember(member);
-        return memberConverter.convert(memberRepo.save(member));
+        return memberRepo.save(member);
     }
 
     @Override
-    public List<MemberDto> getAll() {
-        return memberRepo.findAll().stream()
-                .map(memberConverter::convert)
-                .toList();
+    public List<Member> getAll() {
+        return memberRepo.findAll();
     }
+
     @Override
-    public MemberDto updateMember(Member user) {
+    public Member updateMember(Member user) {
         if (memberRepo.existsById(user.getId())){
-            return memberConverter.convert(memberRepo.save(user));
+            return memberRepo.save(user);
         } else {
             throw new RuntimeException("User does not exist");
         }
@@ -52,11 +48,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public boolean loginIsExist(String login) {
         return memberRepo.existsByLogin(login);
-    }
-
-    @Override
-    public MemberStatus getStatus() {
-        return getStatus();
     }
 
     @Override

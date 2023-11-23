@@ -1,26 +1,20 @@
 package com.example.saloon.room;
 
-import com.example.saloon.reservation.ReservationConverter;
-import com.example.saloon.reservation.ReservationDto;
+import com.example.saloon.reservation.Reservation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class RoomServiceImpl implements RoomService {
     private final RoomRepo roomRepo;
-    private final RoomConverter roomConverter;
-    private final ReservationConverter reservationConverter;
 
     @Override
-    public List<RoomDto> getAll() {
-        return roomRepo.findAll().stream()
-                .map(roomConverter::convert)
-                .toList();
+    public List<Room> getAll() {
+        return roomRepo.findAll();
     }
 
     @Override
@@ -42,14 +36,11 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<ReservationDto> getReservationsForRoom(Integer roomNumber) {
+    public List<Reservation> getReservationsForRoom(Integer roomNumber) {
         Room room = roomRepo.findByRoomNumber(roomNumber);
         if (room == null) {
-            // Обработка случая, если комната не найдена
             return new ArrayList<>();
         }
-        return room.getReservationList().stream()
-                .map(a -> reservationConverter.convert(a))
-                .collect(Collectors.toList());
+        return room.getReservationList();
     }
 }

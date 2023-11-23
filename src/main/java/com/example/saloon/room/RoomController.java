@@ -12,10 +12,13 @@ import java.util.List;
 @RequestMapping("/rooms")
 public class RoomController {
     private final RoomService roomService;
-    private final RoomRepo roomRepo;
+    private final RoomConverter roomConverter;
+
     @RequestMapping("/getAll")
     public String listRooms(Model model) {
-        List<RoomDto> rooms = roomService.getAll();
+        List<RoomDto> rooms = roomService.getAll().stream()
+                .map(roomConverter::convert)
+                .toList();
 
         model.addAttribute("rooms", rooms);
         return "rooms";
