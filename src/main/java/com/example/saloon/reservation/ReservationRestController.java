@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/reservations")
-public class ReservationGetController {
+public class ReservationRestController {
     private final RoomService roomService;
     private final ReservationService reservationService;
     private final ReservationConverter reservationConverter;
