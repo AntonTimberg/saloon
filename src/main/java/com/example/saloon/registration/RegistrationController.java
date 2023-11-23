@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Collections;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @Controller
 public class RegistrationController {
@@ -28,6 +30,8 @@ public class RegistrationController {
 
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model, Authentication authentication) {
@@ -65,6 +69,14 @@ public class RegistrationController {
             model.addAttribute("user", user);
             return "registration";
         }
+        String loginPasswordRegex = "^[A-Za-z0-9./]+$";
+        if (!Pattern.matches(loginPasswordRegex, user.getLogin()) || !Pattern.matches(loginPasswordRegex, user.getPassword())) {
+            throw new IllegalArgumentException("Login or Password contains invalid characters");
+        }
+        //logger.info("Registering user: " + user.getLogin() + " with raw password: " + user.getPassword());
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        //logger.info("Encoded password for " + user.getLogin() + ": " + encodedPassword);
+        user.setPassword(encodedPassword);
 
         memberService.createMember(user);
         return "redirect:/login";

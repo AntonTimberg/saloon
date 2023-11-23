@@ -6,7 +6,7 @@ CREATE TABLE member
     gender     VARCHAR(10) NOT NULL,
     birthdate  DATE NOT NULL,
     login      VARCHAR(15) NOT NULL UNIQUE,
-    password   VARCHAR(15) NOT NULL,
+    password   VARCHAR(255) NOT NULL,
     status     VARCHAR(25) NOT NULL DEFAULT 'CLIENT'
 );
 

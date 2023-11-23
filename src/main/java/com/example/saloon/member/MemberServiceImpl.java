@@ -60,10 +60,5 @@ public class MemberServiceImpl implements MemberService {
         if (!Pattern.matches(nameRegex, member.getName()) || !Pattern.matches(nameRegex, member.getSurname())) {
             throw new IllegalArgumentException("Name or Surname contains invalid characters");
         }
-
-        String loginPasswordRegex = "^[A-Za-z0-9]+$";
-        if (!Pattern.matches(loginPasswordRegex, member.getLogin()) || !Pattern.matches(loginPasswordRegex, member.getPassword())) {
-            throw new IllegalArgumentException("Login or Password contains invalid characters");
-        }
     }
 }
