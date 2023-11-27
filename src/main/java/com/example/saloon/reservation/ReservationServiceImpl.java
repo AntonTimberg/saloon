@@ -5,7 +5,6 @@ import com.example.saloon.member.MemberRepo;
 import com.example.saloon.room.Room;
 import com.example.saloon.room.RoomRepo;
 import com.example.saloon.room.RoomService;
-import com.example.saloon.room.RoomStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -76,12 +75,23 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public void updateRoomStatus(Room room, RoomStatus status) {
-
+    public List<Reservation> getAllByUserId(Long userId) {
+        return reservationRepo.getAllByUserId(userId);
     }
 
     @Override
-    public List<Reservation> getAllByUserId(Long userId) {
-        return reservationRepo.getAllByUserId(userId);
+    public void deleteReservationsByUserLogin(String login) {
+        Member currentUser = memberRepo.findByLogin(login);
+        if (currentUser == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+        List<Reservation> reservations = reservationRepo.getAllByUserId(currentUser.getId());
+        reservationRepo.deleteAll(reservations);
+    }
+
+    @Override
+    public void deleteReservationsByRoomNumber(Integer roomNumber) {
+        List<Reservation> reservations = roomService.getReservationsForRoom(roomNumber);
+        reservationRepo.deleteAll(reservations);
     }
 }

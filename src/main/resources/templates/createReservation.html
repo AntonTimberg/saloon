@@ -40,6 +40,9 @@
     <td th:text="${#dates.format(reservation.reservationFrom, 'yyyy-MM-dd')}"></td>
     <td th:text="${#dates.format(reservation.reservationUntil, 'yyyy-MM-dd')}"></td>
   </tr>
+  <tr th:if="${#lists.isEmpty(existingReservations)}">
+    <td colspan="2">Существующих бронирований нет</td>
+  </tr>
 </table>
 
 <form th:action="@{/reservations/create}" method="post">
