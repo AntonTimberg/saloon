@@ -4,6 +4,7 @@ import com.example.saloon.member.Member;
 import com.example.saloon.member.MemberRepo;
 import com.example.saloon.room.Room;
 import com.example.saloon.room.RoomRepo;
+import com.example.saloon.room.RoomService;
 import com.example.saloon.room.RoomStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepo reservationRepo;
     private final RoomRepo roomRepo;
     private final MemberRepo memberRepo;
+    private final RoomService roomService;
 
     @Override
     public Reservation createReservation(ReservationDto reservationDto, Integer roomNumber) {
@@ -45,6 +47,7 @@ public class ReservationServiceImpl implements ReservationService {
                 .build();
 
         reservationRepo.save(reservation);
+        roomService.updateStatus(roomNumber);
 
         return reservation;
     }
@@ -71,11 +74,6 @@ public class ReservationServiceImpl implements ReservationService {
                 .userId(currentUser.getId())
                 .build();
     }
-
-//    public List<ReservationDto> getReservationsByRoomNumber(Integer roomNumber) {
-//        List<Reservation> reservations = reservationRepo.findByRoom_RoomNumber(roomNumber);
-//        return reservations.stream().map(a -> reservationConverter.convert(a)).collect(Collectors.toList());
-//    }
 
     @Override
     public void updateRoomStatus(Room room, RoomStatus status) {

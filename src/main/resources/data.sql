@@ -6,7 +6,7 @@ INSERT INTO room(room_number, status, roomclass, capacity, image_path)
 VALUES (1, 'AVAILABLE',  'PALACE', 4, 'PALACE.jpg'),
        (2, 'AVAILABLE', 'VIP', 2, 'VIP.jpg'),
        (3, 'AVAILABLE', 'NORMAL', 1, 'normal.jpg'),
-       (4, 'OCCUPIED', 'PRESIDENT', 3, 'PRESIDENT.jpg'),
+       (4, 'AVAILABLE', 'PRESIDENT', 3, 'PRESIDENT.jpg'),
        (5, 'AVAILABLE', 'VIP', 2, 'VIP.jpg'),
        (6, 'AVAILABLE', 'NORMAL', 2, 'normal.jpg'),
        (7, 'AVAILABLE', 'NORMAL', 1, 'normal.jpg'),
@@ -14,4 +14,4 @@ VALUES (1, 'AVAILABLE',  'PALACE', 4, 'PALACE.jpg'),
        (404, 'MAINTENANCE', 'NORMAL', 1, null);
 
 INSERT INTO reservation(room, reservationfrom, reservationuntil, userid)
-VALUES (4, '1999-04-26', '2023-09-30', 1);
+VALUES (4, '1999-04-26', '2024-09-30', 1);

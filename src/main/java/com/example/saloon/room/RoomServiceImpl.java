@@ -2,9 +2,13 @@ package com.example.saloon.room;
 
 import com.example.saloon.reservation.Reservation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,9 +22,48 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void updateStatus(Integer roomNumber,RoomStatus status) {
+    public void updateStatus(Integer roomNumber) {
         Room room = roomRepo.findByRoomNumber(roomNumber);
-        if(room != null) room.setStatus(status);
+        if (room == null) return;
+
+        List<Reservation> reservations = room.getReservationList();
+        LocalDateTime now = LocalDateTime.now();
+        boolean isOccupiedOrInMaintenance = reservations.stream()
+                .anyMatch(reservation -> {
+                    LocalDateTime from = convertToLocalDateTime(reservation.getReservationFrom());
+                    LocalDateTime until = convertToLocalDateTime(reservation.getReservationUntil());
+                    return (now.isAfter(from.minusDays(1)) && now.isBefore(until.plusHours(4)));
+                });
+
+        if (isOccupiedOrInMaintenance) {
+            boolean isInMaintenance = reservations.stream()
+                    .anyMatch(reservation -> {
+                        LocalDateTime until = convertToLocalDateTime(reservation.getReservationUntil());
+                        return now.isAfter(until) && now.isBefore(until.plusHours(4));
+                    });
+
+            if (isInMaintenance) {
+                room.setStatus(RoomStatus.MAINTENANCE);
+            } else {
+                room.setStatus(RoomStatus.OCCUPIED);
+            }
+        } else {
+            room.setStatus(RoomStatus.AVAILABLE);
+        }
+
+        roomRepo.save(room);
+    }
+
+    @Scheduled(cron = "0 0 0 * * *")
+    public void updateAllRoomStatuses() {
+        List<Room> rooms = roomRepo.findAll();
+        rooms.forEach(room -> updateStatus(room.getRoomNumber()));
+    }
+
+    private LocalDateTime convertToLocalDateTime(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
     }
 
     @Override

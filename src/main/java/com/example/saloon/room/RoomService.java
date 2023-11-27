@@ -7,7 +7,7 @@ import java.util.List;
 public interface RoomService {
     List<Room> getAll();
 
-    void updateStatus(Integer roomNumber, RoomStatus status);
+    void updateStatus(Integer roomNumber);
 
     Integer getCapacity(Integer roomNumber);
 

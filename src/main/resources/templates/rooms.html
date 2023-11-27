@@ -22,7 +22,16 @@
       <div class="room-info">
         <p th:text="'Класс: ' + ${room.roomClass}"></p>
         <p th:text="'Статус: ' + ${room.roomStatus}"></p>
-        <p th:text="'Вместимость: ' + ${room.capacity}"></p>
+
+        <p th:if="${room.roomStatus.name() == 'OCCUPIED' and room.currentReservationEnd != null}"
+           th:text="'Забронировано до: ' + ${#dates.format(room.currentReservationEnd, 'yyyy-MM-dd HH:mm')}">
+        </p>
+
+        <p th:if="${room.roomStatus.name() == 'AVAILABLE' and room.nextReservationStart != null}"
+           th:text="'Свободно до: ' + ${#dates.format(room.nextReservationStart, 'yyyy-MM-dd HH:mm')}">
+        </p>
+
+        <p th:text="'Capacity: ' + ${room.capacity}"></p>
       </div>
     </a>
   </div>

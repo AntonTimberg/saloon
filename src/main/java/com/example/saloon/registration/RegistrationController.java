@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 
 @Controller
 public class RegistrationController {
-    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+    //private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
     @Autowired
     private MemberService memberService;
@@ -52,7 +52,7 @@ public class RegistrationController {
         LocalDate birthDate = LocalDate.parse(birthdate);
         user.setBirthDay(birthDate);
         if (!isAgeValid(birthDate)) {
-            model.addAttribute("ageError", "Сервис доступен только после 14 лет");
+            model.addAttribute("ageError", "The service is available only after 14 years old.");
             model.addAttribute("user", user);
             return "registration";
         }
@@ -64,7 +64,7 @@ public class RegistrationController {
         }
 
         if (memberService.loginIsExist(user.getLogin())) {
-            logger.info("Login already exists: " + user.getLogin());
+            //logger.info("Login already exists: " + user.getLogin());
             bindingResult.rejectValue("login", "error.user", "An account already exists for this login.");
             model.addAttribute("user", user);
             return "registration";
