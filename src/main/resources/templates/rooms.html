@@ -3,6 +3,11 @@
 <head>
   <title>Список комнат</title>
   <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+  <style>
+    .status-occupied { color: red; }
+    .status-available { color: green; }
+    .status-maintenance { color: orange; }
+  </style>
 </head>
 <body>
 <div th:replace="~{banner :: banner}"></div>
@@ -21,7 +26,14 @@
 
       <div class="room-info">
         <p th:text="'Класс: ' + ${room.roomClass}"></p>
-        <p th:text="'Статус: ' + ${room.roomStatus}"></p>
+
+        <p>Статус:
+          <span th:class="${room.roomStatus.name() == 'OCCUPIED' ? 'status-occupied' :
+                          (room.roomStatus.name() == 'AVAILABLE' ? 'status-available' :
+                          (room.roomStatus.name() == 'MAINTENANCE' ? 'status-maintenance' : ''))}"
+                th:text="${room.roomStatus}">
+          </span>
+        </p>
 
         <p th:if="${room.roomStatus.name() == 'OCCUPIED' and room.currentReservationEnd != null}"
            th:text="'Забронировано до: ' + ${#dates.format(room.currentReservationEnd, 'yyyy-MM-dd HH:mm')}">

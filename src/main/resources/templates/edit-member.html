@@ -3,13 +3,13 @@
 <head>
   <title>Редактирование пользователя</title>
   <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+
 </head>
 <body>
 <div th:replace="~{banner :: banner}"></div>
 <h1>Ваш профиль</h1>
 <div class="form-container">
   <form th:action="@{/members/edit}" method="post" th:object="${member}">
-    <input type="hidden" th:field="*{id}" />
 
     <label for="name">Имя:</label>
     <input type="text" id="name" th:field="*{name}" readonly><br>
@@ -25,8 +25,7 @@
     <input type="hidden" name="gender" th:value="${member.gender}"><br>
 
     <label for="birthdate">Дата рождения:</label>
-    <input type="date" id="birthdate" th:value="${member.birthDay}" readonly>
-    <input type="hidden" name="birthDay" th:value="${member.birthDay}"><br>
+    <input type="date" id="birthdate" th:value="${birthDay}" readonly>
 
     <label for="login">Логин:</label>
     <input type="text" id="login" th:field="*{login}" readonly><br>

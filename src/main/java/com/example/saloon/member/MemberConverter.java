@@ -11,7 +11,7 @@ public class MemberConverter implements Converter<Member, MemberDto> {
     public MemberDto convert(Member source) {
         return MemberDto.builder()
                 .name(source.getName())
-                .surName(source.getSurname())
+                .surname(source.getSurname())
                 .gender(source.getGender())
                 .age(Period.between(source.getBirthDay(), LocalDate.now()).getYears())
                 .login(source.getLogin())

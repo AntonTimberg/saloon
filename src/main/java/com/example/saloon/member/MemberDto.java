@@ -9,7 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class MemberDto {
     private String name;
-    private String surName;
+    private String surname;
     private String gender;
     private Integer age;
     private String login;

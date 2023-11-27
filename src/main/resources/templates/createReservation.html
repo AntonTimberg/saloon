@@ -3,17 +3,55 @@
 <head>
   <title>Создать бронирование</title>
   <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+  <style>
+    .error-message {
+      color: red;
+    }
+  </style>
+  <script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      var today = new Date().toISOString().split('T')[0];
+      var reservationFromInput = document.getElementsByName("reservationFrom")[0];
+      var reservationUntilInput = document.getElementsByName("reservationUntil")[0];
+
+      reservationFromInput.setAttribute('min', today);
+      reservationUntilInput.setAttribute('min', today);
+
+      function checkDateRange(start, end) {
+        var startDate = new Date(start);
+        var endDate = new Date(end);
+      }
+    });
+  </script>
+
 </head>
 <body>
 <div th:replace="~{banner :: banner}"></div>
 
-<h1>Создать бронирование для комнаты № <span th:text="${room.roomNumber}"></span></h1>
+<h1>Забронировать комнату № <span th:text="${room.roomNumber}"></span></h1>
+
+<h2>Существующие бронирования</h2>
+<table>
+  <tr>
+    <th>Дата начала</th>
+    <th>Дата окончания</th>
+  </tr>
+  <tr th:each="reservation : ${existingReservations}">
+    <td th:text="${#dates.format(reservation.reservationFrom, 'yyyy-MM-dd')}"></td>
+    <td th:text="${#dates.format(reservation.reservationUntil, 'yyyy-MM-dd')}"></td>
+  </tr>
+</table>
 
 <form th:action="@{/reservations/create}" method="post">
   <input type="hidden" th:value="${room.roomNumber}" name="roomNumber"/>
-  <input type="date" name="reservationFrom"/>
-  <input type="date" name="reservationUntil"/>
+  <label for="reservationFrom">Дата начала:</label>
+  <input type="date" name="reservationFrom" id="reservationFrom"/>
+  <label for="reservationUntil">Дата окончания:</label>
+  <input type="date" name="reservationUntil" id="reservationUntil"/>
   <input type="submit" value="Создать бронирование"/>
+  <div th:if="${errorMessage}" class="error-message">
+    <p th:text="${errorMessage}"></p>
+  </div>
 </form>
 
 </body>

@@ -23,9 +23,10 @@ public class MemberEditController {
             Member member = memberService.findByLogin(username);
 
             if (member != null) {
-                model.addAttribute("member", memberConverter.convert(member));
+                MemberDto memberDto = memberConverter.convert(member);
+                model.addAttribute("member", memberDto);
+                model.addAttribute("birthDay", member.getBirthDay());
             }
-
         }
         return "edit-member";
     }
