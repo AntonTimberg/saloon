@@ -16,11 +16,18 @@ public class StartupRunner implements CommandLineRunner {
 
     @Autowired
     private MemberRepo memberRepo;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
         List<Member> members = memberRepo.findAll();
         members.forEach(member -> logger.info(member.getName() + " " + member.getSurname() + " member ID: "
                 + member.getId()));
+
+//        Optional<Member> serviceMember = Optional.of(memberRepo.findByLogin("service"));
+//        serviceMember.ifPresent(member -> {
+//            logger.info("Hashed password for member with login 'service': " + passwordEncoder.encode(member.getPassword()));
+//        });
     }
 }

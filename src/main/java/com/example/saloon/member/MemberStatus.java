@@ -9,6 +9,7 @@ public enum MemberStatus {
     ADMIN("Administrator"),
     STAFF("Stuff"),
     CLIENT("Client"),
+    SERVICE("Service"),
     EXCOMMUNICADO("Excommunicado");
 
     private final String status;

@@ -2,7 +2,6 @@ package com.example.saloon.room;
 
 import com.example.saloon.reservation.Reservation;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

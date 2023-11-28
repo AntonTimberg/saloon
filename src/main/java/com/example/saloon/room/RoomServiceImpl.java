@@ -1,6 +1,10 @@
 package com.example.saloon.room;
 
+import com.example.saloon.member.Member;
+import com.example.saloon.member.MemberRepo;
 import com.example.saloon.reservation.Reservation;
+import com.example.saloon.reservation.ReservationRepo;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -10,11 +14,14 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class RoomServiceImpl implements RoomService {
     private final RoomRepo roomRepo;
+    private final MemberRepo memberRepo;
+    private final ReservationRepo reservationRepo;
 
     @Override
     public List<Room> getAll() {
@@ -85,5 +92,18 @@ public class RoomServiceImpl implements RoomService {
             return new ArrayList<>();
         }
         return room.getReservationList();
+    }
+
+    @Override
+    public List<Room> getRoomsByUserLogin(String userLogin) {
+        Member member = memberRepo.findByLogin(userLogin);
+        if (member == null) {
+            throw new EntityNotFoundException("User not found");
+        }
+        List<Reservation> reservations = reservationRepo.getAllByUserId(member.getId());
+        return reservations.stream()
+                .map(Reservation::getRoom)
+                .distinct()
+                .collect(Collectors.toList());
     }
 }

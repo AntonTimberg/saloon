@@ -35,13 +35,6 @@ select {
     color: black;
 }
 
-input[type="text"] + label,
-input[type="password"] + label,
-input[type="date"] + label,
-select + label {
-    margin-bottom: 15px;
-}
-
 input[type="submit"] {
     background-color: #3498db;
     color: white;
@@ -61,7 +54,6 @@ span.error-message {
     margin-top: 5px;
 }
 
-
 .fixed-banner {
     position: fixed;
     top: 0;
@@ -73,12 +65,11 @@ span.error-message {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 0;
 }
 
 .right-buttons {
-    height: 100%;
     margin-right: 20px;
-    float: right;
 }
 
 .bannerbutton {
@@ -110,6 +101,9 @@ span.error-message {
     background-color: #ddd;
     border-radius: 50%;
     margin-right: 10px;
+    background-image: url('images/user/userIco.png');
+    background-size: cover;
+    background-position: center;
 }
 
 .user-info-link {
@@ -147,13 +141,13 @@ span.error-message {
 
 @media (max-width: 800px) {
     .room {
-        min-width: calc(100% / 2 - 10px);
+        width: calc(100% / 2 - 20px);
     }
 }
 
 @media (max-width: 500px) {
     .room {
-        min-width: 100%;
+        width: 100%;
     }
 }
 
@@ -162,14 +156,40 @@ span.error-message {
     color: inherit;
 }
 
-.user-icon {
-    width: 30px;
-    height: 30px;
-    background-color: #ddd;
-    border-radius: 50%;
-    background-image: url('images/user/userIco.png');
-    background-size: cover;
-    background-position: center;
+.container {
+    display: flex;
+    margin-top: 60px;
 }
 
+.column {
+    flex: 1;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
 
+.column div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.column div > .text {
+    flex-grow: 1;
+    margin-right: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.column div > .buttons {
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    white-space: nowrap;
+    min-width: 70px;
+    margin-left: 5px;
+}

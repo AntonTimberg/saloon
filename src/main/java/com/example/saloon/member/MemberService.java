@@ -1,6 +1,7 @@
 package com.example.saloon.member;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MemberService {
     Member createMember(Member user);
@@ -16,4 +17,6 @@ public interface MemberService {
     boolean loginIsExist(String login);
 
     void validateMember(Member member);
+
+    Optional<Member> findById(Long id);
 }

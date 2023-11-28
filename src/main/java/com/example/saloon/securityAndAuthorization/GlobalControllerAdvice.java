@@ -1,4 +1,4 @@
-package com.example.saloon;
+package com.example.saloon.securityAndAuthorization;
 
 import com.example.saloon.member.Member;
 import com.example.saloon.member.MemberRepo;
@@ -13,7 +13,8 @@ public class GlobalControllerAdvice {
 
     @Autowired
     private MemberRepo memberRepo;
-
+//    @Autowired
+//    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
     @ModelAttribute
     public void addAttributes(Model model, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
@@ -22,6 +23,8 @@ public class GlobalControllerAdvice {
             if (member != null) {
                 model.addAttribute("userFirstName", member.getName());
                 model.addAttribute("userLastName", member.getSurname());
+                model.addAttribute("userRole", member.getStatus().toString());
+                //logger.info(member.getStatus().toString());
             }
         }
     }

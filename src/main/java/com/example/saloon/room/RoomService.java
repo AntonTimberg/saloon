@@ -13,4 +13,5 @@ public interface RoomService {
 
     Room getByRoomNumber(Integer roomNumber);
     List<Reservation> getReservationsForRoom(Integer roomNumber);
+    List<Room> getRoomsByUserLogin(String userLogin);
 }

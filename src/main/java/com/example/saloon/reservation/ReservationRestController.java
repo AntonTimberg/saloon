@@ -13,24 +13,31 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/reservations")
+@RequestMapping("/api")
 public class ReservationRestController {
     private final RoomService roomService;
     private final ReservationService reservationService;
     private final ReservationConverter reservationConverter;
 
-    @GetMapping("/{roomNumber}")
+    @GetMapping("/reservations/{roomNumber}")
     public ResponseEntity<List<ReservationDto>> getReservations(@PathVariable Integer roomNumber) {
         List<ReservationDto> reservations = roomService.getReservationsForRoom(roomNumber).stream()
-                .map(a -> reservationConverter.convert(a))
+                .map(reservationConverter::convert)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(reservations);
     }
 
-    @GetMapping("/getBy/{userId}")
+    @GetMapping("/reservations/getBy/{userId}")
     public ResponseEntity<List<ReservationDto>> getByUserId(@PathVariable Long userId) {
         List<ReservationDto> reservation = reservationService.getAllByUserId(userId).stream()
-                .map(a -> reservationConverter.convert(a)).toList();
+                .map(reservationConverter::convert).toList();
+        return ResponseEntity.ok(reservation);
+    }
+
+    @GetMapping("/reservations/getBy/{userLogin}")
+    public ResponseEntity<List<ReservationDto>> getByUserLogin(@PathVariable String userLogin) {
+        List<ReservationDto> reservation = reservationService.getReservationsByUserLogin(userLogin).stream()
+                .map(reservationConverter::convert).toList();
         return ResponseEntity.ok(reservation);
     }
 }

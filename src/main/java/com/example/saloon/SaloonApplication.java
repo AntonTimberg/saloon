@@ -31,13 +31,15 @@ public class SaloonApplication {
         MvcRequestMatcher loginMatcher = new MvcRequestMatcher(handlerMappingIntrospector, "/login");
         MvcRequestMatcher stylesMatcher = new MvcRequestMatcher(handlerMappingIntrospector, "/styles.css");
         MvcRequestMatcher getAllMatcher = new MvcRequestMatcher(handlerMappingIntrospector, "/users/getAll");
-        //MvcRequestMatcher firstMatcher = new MvcRequestMatcher(handlerMappingIntrospector, "/firstPage");
+        MvcRequestMatcher api = new MvcRequestMatcher(handlerMappingIntrospector, "/api/**");
+        MvcRequestMatcher admin = new MvcRequestMatcher(handlerMappingIntrospector, "/admin/**");
 
         return http
                 .csrf().disable()
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(welcomeMatcher, registerMatcher, stylesMatcher, loginMatcher).permitAll()
-                        .requestMatchers(getAllMatcher).hasAuthority("ROLE_ADMIN")
+                        .requestMatchers(api).hasRole("SERVICE")
+                        .requestMatchers(getAllMatcher,admin).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

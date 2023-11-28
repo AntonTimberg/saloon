@@ -10,5 +10,8 @@ public interface ReservationService {
     Reservation convertToReservation(ReservationDto reservationDto, Room room);
     List<Reservation> getAllByUserId(Long userId);
     void deleteReservationsByUserLogin(String login);
+    List<Reservation> getReservationsByUserLogin(String login);
     void deleteReservationsByRoomNumber(Integer roomNumber);
+    List<Reservation> getAll();
+    Reservation getById(Long id);
 }

@@ -12,27 +12,27 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/api")
 public class MemberController {
     private final MemberService memberService;
     private final MemberConverter memberConverter;
 
-    @RequestMapping ("/getAll")
+    @RequestMapping ("/users/getAll")
     public List<MemberDto> getAllUsers(){
         return memberService.getAll().stream()
                 .map(memberConverter::convert)
                 .toList();
     }
 
-    @GetMapping("/deleteByLogin/{login}")
-    public ResponseEntity<String> deleteByLogin(@PathVariable String login){
-        Member user = memberService.findByLogin(login);
-        if(user == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-        else memberService.deleteMemberByLogin(user.getLogin());
-        return ResponseEntity.ok("User deleted successfully");
-    }
+//    @GetMapping("/deleteByLogin/{login}")
+//    public ResponseEntity<String> deleteByLogin(@PathVariable String login){
+//        Member user = memberService.findByLogin(login);
+//        if(user == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+//        else memberService.deleteMemberByLogin(user.getLogin());
+//        return ResponseEntity.ok("User deleted successfully");
+//    }
 
-    @GetMapping("/{login}/getStatus")
+    @GetMapping("/users/{login}/getStatus")
     public ResponseEntity<String> getStatus(@PathVariable String login){
         Member user = memberService.findByLogin(login);
         if (user == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");

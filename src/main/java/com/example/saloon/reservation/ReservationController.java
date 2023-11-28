@@ -3,7 +3,6 @@ package com.example.saloon.reservation;
 import com.example.saloon.room.Room;
 import com.example.saloon.room.RoomConverter;
 import com.example.saloon.room.RoomService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

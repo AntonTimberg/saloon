@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Service
@@ -25,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member updateMember(Member user) {
-        if (memberRepo.existsById(user.getId())){
+        if (memberRepo.existsById(user.getId())) {
             return memberRepo.save(user);
         } else {
             throw new RuntimeException("User does not exist");
@@ -35,7 +36,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void deleteMemberByLogin(String login) {
         Member user = memberRepo.findByLogin(login);
-        if (user != null){
+        if (user != null) {
             memberRepo.delete(user);
         }
     }
@@ -60,5 +61,10 @@ public class MemberServiceImpl implements MemberService {
         if (!Pattern.matches(nameRegex, member.getName()) || !Pattern.matches(nameRegex, member.getSurname())) {
             throw new IllegalArgumentException("Name or Surname contains invalid characters");
         }
+    }
+
+    @Override
+    public Optional<Member> findById(Long id) {
+        return memberRepo.findById(id);
     }
 }

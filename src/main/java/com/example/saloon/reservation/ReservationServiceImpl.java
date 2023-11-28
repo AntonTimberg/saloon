@@ -5,6 +5,7 @@ import com.example.saloon.member.MemberRepo;
 import com.example.saloon.room.Room;
 import com.example.saloon.room.RoomRepo;
 import com.example.saloon.room.RoomService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -90,8 +91,27 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<Reservation> getReservationsByUserLogin(String login) {
+        Member member = memberRepo.findByLogin(login);
+        if (member == null) {
+            throw new EntityNotFoundException("User not found");
+        }
+        return reservationRepo.getAllByUserId(member.getId());
+    }
+
+    @Override
     public void deleteReservationsByRoomNumber(Integer roomNumber) {
         List<Reservation> reservations = roomService.getReservationsForRoom(roomNumber);
         reservationRepo.deleteAll(reservations);
+    }
+
+    @Override
+    public List<Reservation> getAll() {
+        return reservationRepo.findAll();
+    }
+
+    @Override
+    public Reservation getById(Long id) {
+        return reservationRepo.getById(id);
     }
 }
