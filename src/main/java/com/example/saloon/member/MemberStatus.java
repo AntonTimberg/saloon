@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public enum MemberStatus {
     ADMIN("Administrator"),
-    STAFF("Stuff"),
+    STAFF("Staff"),
     CLIENT("Client"),
     SERVICE("Service"),
     EXCOMMUNICADO("Excommunicado");
